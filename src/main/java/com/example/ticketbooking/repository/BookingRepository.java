@@ -8,11 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    Optional<Booking> findByEventAndUserIdAndStatus(Event event, String userId, BookingStatus status);
 
     @Query("SELECT COALESCE(SUM(b.seatsBooked), 0) FROM Booking b WHERE b.event = :event AND b.status = 'ACTIVE'")
     int sumSeatsBookedByEvent(@Param("event") Event event);
